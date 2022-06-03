@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.18.2",
+    "global": "^4.4.0",
+    "rollup": "^2.75.5",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-esm-import-to-url": "^2.1.0",
+    "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "name": "vuetypemodule",
+  "version": "1.0.0",
+  "description": "vue type module build by rollup ",
+  "main": "main.js",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "global": "^4.4.0",
+    "rollup": "^2.75.5",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-esm-import-to-url": "^2.1.0",
+    "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "scripts": {
+    "dev": "npx serve",
+    "build": "rollup -c ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "vuetypemodule"
+  },
+  "keywords": [
+    "vue3",
+    "typemodule",
+    "esm"
+  ],
+  "author": "limweb@hotmail.com",
+  "license": "MIT"
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>VUE3 TEMPLATE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+</head>
+
+<body>
+    <div id='app'>App {{msg}}</div>
+    <script type='importmap'>
+        {
+            "imports": {
+                "vue":        "./vue.esm-browser.js",
+                "vue-router": "./vue-router.esm-browser.js",
+                "vuex":       "./vuex.esm-browser.js"
+            }
+        }
+</script>
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>

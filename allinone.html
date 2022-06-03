@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>VUE3 TEMPLATE</title>
+    <!-- <link href='https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css' rel='stylesheet'> -->
+</head>
+<body>
+<div id='app'>App {{msg}}</div>
+<script type='importmap'>
+{
+    "imports": {
+        "vue":        "https://unpkg.com/vue@3.0.0/dist/vue.esm-browser.js",
+        "vue-router": "https://unpkg.com/vue-router@4.0.0-beta.13/dist/vue-router.esm-browser.js",
+        "vuex":       "https://unpkg.com/vuex@4.0.0-beta.4/dist/vuex.esm-browser.js"
+} }
+</script>
+<script type='module'>
+    import { createApp,defineComponent,computed   } from 'vue'
+    import { createRouter, createWebHistory } from 'vue-router'
+    import { createStore,useStore  } from 'vuex'
+
+    // vuex4 example
+    const store = createStore({
+        state () {
+            return {
+                count: 1
+            }
+        },
+        mutations: {
+            increment (state) {
+                state.count++
+            }
+        }
+    })
+
+    //vue3 example
+    const app = createApp({
+        data:()=>({msg:'vuejs 3 '}),
+        template:`
+            <h1>App {{msg}}</h1>
+            <Test /> <Home />
+            <p>
+            <router-link to='/home'>Home</router-link>&nbsp;&nbsp;
+            <router-link to='/foo'>Foo</router-link>&nbsp;&nbsp;
+            <router-link to='/foo/1'>Foo/1</router-link>&nbsp;&nbsp;
+            <router-link to='/bar'>Bar</router-link>
+            </p>
+            <br/>
+            <router-view />
+        `
+    });
+
+   //component for vue-router4 example
+   const Home =  { template:`<h2>Home</h2><Test/>`};
+   const Foo =   { template: '<div>foo</div>{{ $route.params }}/{{$router}}' };
+   const Bar =   { template: '<div>bar/{{$store.state.count}} </div>' };
+   const Test =  {
+       setup(){
+           //-example userStore-------
+           const store = useStore();
+           const count = computed(()=>store.state.count);
+           console.log('test--->',count);
+           const decrement = ()=>{
+               store.state.count--;
+           }
+           return { count,decrement }
+       },
+       template: `<div>test count--> {{ $store.state.count }}//{{count}}</div>
+                  <input type='button' value='Add'  @click="$store.commit('increment')">
+                  <input type='button' value='Dec'  @click='decrement'>
+                 `
+    };
+
+   //vue3 component example
+   app.component('Test',Test);
+   app.component('Home',Home);
+
+    //vue-router4 example
+    const router =  createRouter({
+        history: createWebHistory(),
+        routes: [
+            {path:'/home',name:'Home',component: Home},
+            {path:'/foo',name:'Foo',component: Foo },
+            {path:'/foo/:id',name:'Fooinfo',component: Foo },
+            {path:'/bar',name:'Bar',component: Bar},
+        ]
+    });
+
+    app.use(router);
+    app.use(store);
+    app.mount('#app');
+    //---add instance to global for test----
+    window.router = router;
+    window.app = app;
+    window.store = store;
+
+    //--- Log test ----------
+    console.log('router--->',router);
+    console.log('store--->',store);
+    console.log('app--->',app);
+    // router.push('/foo/1');
+    console.log('router-->',router.currentRoute.value);
+</script>
+</body>
+</html>
